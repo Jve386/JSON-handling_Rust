@@ -1,4 +1,4 @@
-#Read Json with Rust
+# Read Json Data - Rust 
 
 This repository implements a basic JSON reader in Rust, leveraging the serde and serde_json dependencies. 
 
