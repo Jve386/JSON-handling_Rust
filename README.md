@@ -6,7 +6,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 ```
 
 ## Table of Contents:
-1. [JSON Reader](#json-reader)
+1. [JSON Reader](#json-reader-read-json)
 2. [Compressor](#compressor)
 3. [Decompressor](#decompressor)
 
