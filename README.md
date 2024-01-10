@@ -6,15 +6,15 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 ```
 
 ## Table of Contents:
-1. [JSON Reader](#read-json)
-2. [Compressor](#compressor)
-3. [Decompressor](#decompressor)
+1. [read-json ](#read-json)
+2. [zip-create](#zip-create)
+3. [zip-extract](#zip-extract)
 
 
 ---
 
-## 🚀 JSON Reader 
 read-json 
+=====
 
 This repository implements a basic JSON reader in Rust, leveraging the serde and serde_json dependencies. 
 
@@ -59,16 +59,15 @@ serde = { version = "1.0", features = ["derive"] }
 
 ---
 
-## 🚀 Compressor 
+ 
 zip-create
-
+=====
 - To be filled. Work in progress...
 
 ---
 
-## 🚀 Decompressor 
 zip-extract
-
+=====
 
 A simple Rust program for extracting files from a zip archive. This utility allows you to extract files safely, considering their names and permissions. It is built using the `zip` crate.
 
