@@ -20,18 +20,6 @@ This repository implements a basic JSON reader in Rust, leveraging the serde and
 The project defines two data structures, Paragraph and Article, annotated with Serialize and Deserialize traits from serde. 
 The main function demonstrates parsing a predefined JSON string into an Article object and accessing its properties.
 
-<<<<<<< HEAD
-<p align="center"><a href="/img/class_diagram.png" target="_blank">
-    <img src="/img/rust_1.jpg" />
-  </a></p>
-  
-Dependencies:
-
-
-<p align="center"><a href="/img/class_diagram.png" target="_blank">
-    <img src="/img/rust_2.jpg" />
-</a></p>
-=======
 ```Rust
 // A JSON string representing an 'Article' object
 let json = r#"
@@ -66,7 +54,6 @@ Add the following dependencies to your Cargo.toml file:
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 ```
->>>>>>> zip-extract
 
 ---
 
