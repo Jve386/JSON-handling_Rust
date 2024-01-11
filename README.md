@@ -9,6 +9,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 1. [read-json ](#read-json)
 2. [zip-create](#zip-create)
 3. [zip-extract](#zip-extract)
+4. [csv-reader](#csv-reader)
 
 
 ---
@@ -56,6 +57,7 @@ Add the following dependencies to your Cargo.toml file:
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 ```
+<a href="https://crates.io/crates/serde">Documentation for serde.</a> 
 
 ---
 
@@ -103,6 +105,7 @@ Add the following dependencies to your Cargo.toml file:
 [dependencies]
 flate2 = "1.0.28"
 ```
+<a href="https://crates.io/crates/flate2">Documentation for flate2.</a> 
 
 ### Usage
 To use the zip-create utility, provide the source and target filenames as command-line argument:
@@ -146,6 +149,7 @@ Add the following dependencies to your Cargo.toml file:
 ```
 zip = "0.6.2"
 ```
+<a href="https://crates.io/crates/zip">Documentation for zip.</a>  
 
 ### Usage
 
@@ -153,6 +157,65 @@ To use the `zip-extract` utility, provide the filename of the zip archive as a c
 
 ```bash
 cargo run your_archive.zip
+```
+
+---
+
+csv-reader
+=====
+
+A basic CSV reader utility in Rust using the 'csv' crate. Explore CSV parsing in Rust and learn how to handle errors with Rust's Result and the '?' operator.
+
+### Code Structure🏗️
+
+The 'read_from_file' function attempts to create a CSV reader from the specified file path and iterates over the records, printing them. Rust's 'Result' type is used to handle errors, and the '?' operator is used to propagate errors.
+
+```Rust
+use std::error::Error;
+use csv;
+
+// Function to read and print records from a CSV file
+fn read_from_file(path: &str) -> Result<(), Box<dyn Error>> {
+    // Attempt to create a CSV reader from the file
+    let mut reader = csv::Reader::from_path(path)?;
+
+    // Iterate over records in the CSV reader
+    for result in reader.records() {
+        // Attempt to get a record from the result
+        let record = result?;
+
+        // Print the record
+        println!("{:?}", record);
+    }
+
+    Ok(()) // Return Ok if there is no error
+}
+
+// Main function
+fn main() {
+    // Attempt to read from the "sample.csv" file
+    if let Err(e) = read_from_file("./sample.csv") {
+        // Print the error if there is one
+        eprintln!("{}", e);
+    }
+}
+
+```
+
+You have tons of CSV samples <a href="https://wsform.com/knowledgebase/sample-csv-files/">here</a>. 
+
+### Dependencies🧱
+Add the following dependencies to your Cargo.toml file:
+```
+csv = "1.3"
+```
+<a href="https://crates.io/crates/csv">Documentation for csv.</a>  
+
+### Usage
+
+To use the 'csv-reader' just make sure to have the csv file with the exact name that you have in the function - in this case, it is sample.csv:
+```bash
+cargo run
 ```
 
 ---
