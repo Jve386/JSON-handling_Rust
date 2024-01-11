@@ -16,7 +16,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 read-json 
 =====
 
-This repository implements a basic JSON reader in Rust, leveraging the serde and serde_json dependencies. 
+This project implements a basic JSON reader in Rust, leveraging the serde and serde_json dependencies. 
 
 ### Code Structure🏗️
 The project defines two data structures, Paragraph and Article, annotated with Serialize and Deserialize traits from serde. 
@@ -62,7 +62,53 @@ serde = { version = "1.0", features = ["derive"] }
  
 zip-create
 =====
-- To be filled. Work in progress...
+This project utilizes the flate2 crate to provide a simple solution for compressing files.
+
+### Code Structure🏗️
+
+This program takes a source file, compresses it, and saves the compressed result to a target file.
+
+```Rust
+extern crate flate2;
+
+use flate2::write::GzEncoder;
+use flate2::Compression;
+use std::{env::args, fs::File, io::{self, BufReader}, time::Instant};
+
+fn main() {
+    if args().len() != 3 {
+        eprintln!("Usage: `source` `target`");
+        return;
+    }
+
+    let mut input = BufReader::new(File::open(args().nth(1).unwrap()).unwrap());
+    let output = File::create(args().nth(2).unwrap()).unwrap();
+    let mut encoder = GzEncoder::new(output, Compression::default());
+
+    io::copy(&mut input, &mut encoder).unwrap();
+    let output = encoder.finish().unwrap();
+
+    // Display source and target lengths, and time elapsed
+    println!("Source len: {:?}", input.get_ref().metadata().unwrap().len());
+    println!("Target len: {:?}", output.metadata().unwrap().len());
+    println!("Time elapsed: {:?}", Instant::now().elapsed());
+}
+
+```
+
+### Dependencies🧱
+Add the following dependencies to your Cargo.toml file:
+
+```bash
+[dependencies]
+flate2 = "1.0.28"
+```
+
+### Usage
+To use the zip-create utility, provide the source and target filenames as command-line argument:
+```bash
+cargo run source_file.txt target_file.zip
+```
 
 ---
 
