@@ -10,7 +10,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 2. [zip-create](#zip-create)
 3. [zip-extract](#zip-extract)
 4. [csv-reader](#csv-reader)
-
+5. [write-json](#write-json)
 
 ---
 
@@ -164,7 +164,7 @@ cargo run your_archive.zip
 csv-reader
 =====
 
-A basic CSV reader utility in Rust using the 'csv' crate. Explore CSV parsing in Rust and learn how to handle errors with Rust's Result and the '?' operator.
+A basic CSV reader utility in Rust using the 'csv' crate. Handling errors with Rust's Result and the '?' operator.
 
 ### Code Structure🏗️
 
@@ -219,5 +219,71 @@ cargo run
 ```
 
 ---
+write-json
+====
+
+This utility demonstrates the use of the `serde` library in Rust for JSON serialization and deserialization.
+
+### Code Structure🏗️
+
+Serialize and deserialize JSON data for two structs: `Person` and `Company`. 
+Convert a string to `u8` for the `age` field in the `Person` struct.
+
+```Rust
+use serde::{Deserialize, Serialize};
+
+#[derive(Serialize, Deserialize)]
+struct Person {
+    name: String,
+    age: u8,
+    phones: Vec<String>,
+}
+
+#[derive(Serialize, Deserialize)]
+struct Company {
+    name: String,
+    address: String,
+}
+
+fn main() {
+    let person: Person = Person {
+        name: String::from("Javier de la Vega"),
+        age: "30".parse().expect("Failed to parse age"),
+        phones: vec![String::from("555-1234"), String::from("555-4321")],
+    };
+
+    let company: Company = Company {
+        name: String::from("Jve386"),
+        address: String::from("Street 123"),
+    };
+
+    let json = serde_json::to_string(&person).unwrap();
+    println!("Person: {}", json);
+    let json = serde_json::to_string(&company).unwrap();
+    println!("Company: {}", json);
+}
+
+```
+
+ ### Dependencies🧱
+Add the following dependencies to your Cargo.toml file:
+```Cargo.toml
+[dependencies]
+serde_json = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+```
+<a href="https://crates.io/crates/serde">Documentation for serde.</a> 
+
+---
+
+
+If you wanna format your code to enhance your reading use the following command:
+```Rust
+rustfmt main.rs
+```
+It will help you with possible issues before building the project.
+
+--- 
+
 I have included comprehensive comments for each function, providing detailed explanations and documentation to facilitate understanding and usage.
 🌐 Feel free to contribute to this project, open issues, or use it as a learning resource for Rust development. 🤝
