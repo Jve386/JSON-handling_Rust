@@ -11,7 +11,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 3. [zip-extract](#zip-extract)
 4. [csv-reader](#csv-reader)
 5. [write-json](#write-json)
-
+6. [get-request](#get-request)
 ---
 
 read-json 
@@ -118,11 +118,13 @@ cargo run source_file.txt target_file.zip
 zip-extract
 =====
 
-A simple Rust program for extracting files from a zip archive. This utility allows you to extract files safely, considering their names and permissions. It is built using the `zip` crate.
+A simple Rust program for extracting files from a zip archive. This utility allows you to extract files safely, considering their names and permissions. 
+It is built using the `zip` crate.
 
 ### Code Structure🏗️
 
-The core functionality resides in the real_main function, which iterates over the files in a zip archive and extracts them to the specified destination. It considers file names and permissions for safe extraction.
+The core functionality resides in the real_main function, which iterates over the files in a zip archive and extracts them to the specified destination. 
+It considers file names and permissions for safe extraction.
 
 
 ```Rust
@@ -168,7 +170,8 @@ A basic CSV reader utility in Rust using the 'csv' crate. Handling errors with R
 
 ### Code Structure🏗️
 
-The 'read_from_file' function attempts to create a CSV reader from the specified file path and iterates over the records, printing them. Rust's 'Result' type is used to handle errors, and the '?' operator is used to propagate errors.
+The 'read_from_file' function attempts to create a CSV reader from the specified file path and iterates over the records, printing them. 
+Rust's 'Result' type is used to handle errors, and the '?' operator is used to propagate errors.
 
 ```Rust
 use std::error::Error;
@@ -275,7 +278,74 @@ serde = { version = "1.0", features = ["derive"] }
 <a href="https://crates.io/crates/serde">Documentation for serde.</a> 
 
 ---
+get-request
+====
+This Rust utility demonstrates making a simple GET request to the [httpbin.org](https://httpbin.org/) endpoint using the `reqwest` crate. 
+It showcases error handling using the `error_chain` macro and prints the HTTP status code, headers, and response body in a readable format.
 
+### Code Structure🏗️
+```Rust
+use error_chain::error_chain;
+use std::io::Read;
+
+error_chain! {
+    foreign_links {
+        Io(std::io::Error);
+        HttpRequest(reqwest::Error);
+    }
+}
+
+fn main() -> Result<()> {
+    let mut response = reqwest::blocking::get("https://httpbin.org/get")?;
+    let mut body = String::new();
+    response.read_to_string(&mut body)?;
+
+    println!("Status:{}", response.status());
+    println!("Headers:\n{:#?}", response.headers());
+    println!("Body:\n{}", body);
+    Ok(())
+}
+
+```
+
+### Dependencies🧱
+Add the following dependencies to your Cargo.toml file:
+```Cargo.toml
+[dependencies]
+reqwest = { version = "0.11", features = ["blocking", "json"] }
+error-chain = "0.12.4"
+```
+<a href="https://crates.io/crates/reqwest">Documentation for reqwest.</a> 
+<a href="https://crates.io/crates/error-chain">Documentation for error-chain.</a> 
+
+### Result
+```json
+Status:200 OK
+Headers:
+{
+    "date": "Sat, 20 Jan 2024 08:11:20 GMT",
+    "content-type": "application/json",
+    "content-length": "220",
+    "connection": "keep-alive",
+    "server": "gunicorn/19.9.0",
+    "access-control-allow-origin": "*",
+    "access-control-allow-credentials": "true",
+}
+Body:
+{
+  "args": {},
+  "headers": {
+    "Accept": "*/*",
+    "Host": "httpbin.org",
+    "X-Amzn-Trace-Id": "Root=1-65ab8028-523f72bb1f72c49a37cada8d"
+  },
+  "origin": "83.50.205.84",
+  "url": "https://httpbin.org/get"
+}
+```
+Note:  In the context of HTTP status codes, a status code of 200 indicates that the request has been successful. 
+ 
+---
 
 If you wanna format your code to enhance your reading use the following command:
 ```Rust
