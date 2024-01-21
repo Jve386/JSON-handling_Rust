@@ -12,6 +12,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 4. [csv-reader](#csv-reader)
 5. [write-json](#write-json)
 6. [get-request](#get-request)
+7. [async-await](#async-await)
 ---
 
 read-json 
@@ -343,14 +344,37 @@ Body:
   "url": "https://httpbin.org/get"
 }
 ```
-Note:  In the context of HTTP status codes, a status code of 200 indicates that the request has been successful. 
 
 ---
 
 async-await
 ====
+This utility  utilizes the `reqwest` crate to perform a basic HTTP GET request to the httpbin.org endpoint. 
+The code employs the `error_chain` macro for effective error handling, linking to standard I/O and reqwest errors. 
+It asynchronously fetches the response, prints the HTTP status code, headers in a readable format, and displays the response body. 
+This example highlights Rust's asynchronous capabilities and showcases practical error handling in a concise manner.
 
 ### Code Structure🏗️
+```Rust
+use error_chain::error_chain;
+
+error_chain! {
+    foreign_links {
+        Io(std::io::Error);
+        HttpRequest(reqwest::Error);
+    }
+}
+
+#[tokio::main]
+async fn main() ->Result<()> {
+    let response = reqwest::get("http://httpbin.org/get").await?;
+    println!("Status. {}", response.status());
+    println!("Headers:\n{:#?}", response.headers());
+    let body = response.text().await?;
+    println!("Body:\n{}", body);
+    Ok(())
+}
+```
 
 ### Dependencies🧱
 Add the following dependencies to your Cargo.toml file:
@@ -364,6 +388,31 @@ tokio = { version = "1", features = ["full"] }
 <a href="https://crates.io/crates/error-chain">Documentation for error-chain.</a> 
 <a href="https://crates.io/crates/tokio">Documentation for tokio.</a> 
 
+### Result
+```json
+Status. 200 OK
+Headers:
+{
+    "date": "Sun, 21 Jan 2024 21:46:15 GMT",
+    "content-type": "application/json",
+    "content-length": "219",
+    "connection": "keep-alive",
+    "server": "gunicorn/19.9.0",
+    "access-control-allow-origin": "*",
+    "access-control-allow-credentials": "true",
+}
+Body:
+{
+  "args": {},
+  "headers": {
+    "Accept": "*/*",
+    "Host": "httpbin.org",
+    "X-Amzn-Trace-Id": "Root=1-65ad90a7-18b58b857ad70cd6768cab5a"
+  },
+  "origin": "83.50.205.84",
+  "url": "http://httpbin.org/get"
+}
+```
 ---
 
 If you wanna format your code to enhance your reading use the following command:
@@ -372,6 +421,7 @@ rustfmt main.rs
 ```
 It will help you with possible issues before building the project.
 
+*Note:  In the context of HTTP status codes, a status code of 200 indicates that the request has been successful. 
 --- 
 
 I have included comprehensive comments for each function, providing detailed explanations and documentation to facilitate understanding and usage.
