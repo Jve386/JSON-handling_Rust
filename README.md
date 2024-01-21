@@ -344,7 +344,26 @@ Body:
 }
 ```
 Note:  In the context of HTTP status codes, a status code of 200 indicates that the request has been successful. 
- 
+
+---
+
+async-await
+====
+
+### Code Structure🏗️
+
+### Dependencies🧱
+Add the following dependencies to your Cargo.toml file:
+```Cargo.toml
+[dependencies]
+reqwest = { version = "0.11", features = ["blocking", "json"] }
+error-chain = "0.12.4"
+tokio = { version = "1", features = ["full"] }
+```
+<a href="https://crates.io/crates/reqwest">Documentation for reqwest.</a> 
+<a href="https://crates.io/crates/error-chain">Documentation for error-chain.</a> 
+<a href="https://crates.io/crates/tokio">Documentation for tokio.</a> 
+
 ---
 
 If you wanna format your code to enhance your reading use the following command:
