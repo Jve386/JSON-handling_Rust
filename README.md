@@ -454,7 +454,7 @@ async fn main() -> Result<(), Error> {
 
 ### Dependencies🧱
 Add the following dependencies to your Cargo.toml file:
-```json
+```Cargo.toml
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 reqwest = { version = "0.11", features = ["json"] }
