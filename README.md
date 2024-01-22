@@ -468,6 +468,8 @@ request_url:https://api.github.com/repos/mouredev/Pokemon-JetpackCompose/stargaz
 users:[User { login: "dianait", id: 18724171 }, User { login: "tortuguitahack", id: 104583107 }, User { login: "santimattius", id: 22333101 }, User { login: "EGAMAGZ", id: 46827955 }, User { login: "Corvus-DDoSKrom", id: 60022643 }, User { login: "pableArg", id: 87443200 }, User { login: "Felipeviafra", id: 116529405 }, User { login: "NitroXen", id: 92994759 }, User { login: "sergiolpzgmz", id: 95774420 }, User { login: "AzuelRei", id: 63711569 }, User { login: "gerudaeta", id: 18522826 }, User { login: "justtomartin", id: 63985401 }, User { login: "jfcorreas", id: 5447753 }, User { login: "arturoHNeoris", id: 116126750 }, User { login: "lzmdev7", id: 117466599 }, User { login: "Gozyy", id: 37049227 }, User { login: "natfme", id: 84162661 }, User { login: "johannfjs", id: 6706832 }, User { login: "RoberMiranda92", id: 7872866 }, User { login: "fcuerno001", id: 9178326 }, User { login: "hkhellou", id: 50988331 }, User { login: "GonzaCS", id: 46221344 }, User { login: "lautidias", id: 106644432 }, User { login: "juanunix", id: 20426461 }, User { login: "grostru", id: 18310362 }, User { login: "Cfcifuentesa", id: 112942635 }, User { login: "sebastianperdomo", id: 9873666 }, User { login: "pavloglez", id: 6166941 }, User { login: "emedp", id: 14973053 }, User { login: "santimb96", id: 74008042 }]
 ```
 
+---
+
 If you wanna format your code to enhance your reading use the following command:
 ```Rust
 rustfmt main.rs
@@ -476,15 +478,25 @@ It will help you with possible issues before building the project.
 
 *Note:  In the context of HTTP status codes, a status code of 200 indicates that the request has been successful. 
 
+---
+
 ### 📖 Documentation
 <a href="https://doc.rust-lang.org/book/">The Rust Programming Language</a>.
+
 <a href="https://rust-lang-nursery.github.io/rust-cookbook/">Cookin' with Rust - Examples</a>.
+
 <a href="https://crates.io/crates/serde">Documentation for serde</a>.
+
 <a href="https://crates.io/crates/flate2">Documentation for flate2.</a>.
+
 <a href="https://crates.io/crates/zip">Documentation for zip</a>.
+
 <a href="https://crates.io/crates/csv">Documentation for csv</a>.
+
 <a href="https://crates.io/crates/tokio">Documentation for tokio</a>.
+
 <a href="https://crates.io/crates/reqwest">Documentation for reqwest</a>.
+
 <a href="https://crates.io/crates/error-chain">Documentation for error-chain</a>.
 
 
