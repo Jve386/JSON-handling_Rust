@@ -481,23 +481,23 @@ It will help you with possible issues before building the project.
 ---
 
 ### 📖 Documentation
-<a href="https://doc.rust-lang.org/book/">The Rust Programming Language</a>.
+<a href="https://doc.rust-lang.org/book/">The Rust Programming Language</a>
 
-<a href="https://rust-lang-nursery.github.io/rust-cookbook/">Cookin' with Rust - Examples</a>.
+<a href="https://rust-lang-nursery.github.io/rust-cookbook/">Cookin' with Rust - Examples</a>
 
-<a href="https://crates.io/crates/serde">Documentation for serde</a>.
+<a href="https://crates.io/crates/serde">Documentation for serde</a>
 
-<a href="https://crates.io/crates/flate2">Documentation for flate2.</a>.
+<a href="https://crates.io/crates/flate2">Documentation for flate2</a>
 
-<a href="https://crates.io/crates/zip">Documentation for zip</a>.
+<a href="https://crates.io/crates/zip">Documentation for zip</a>
 
-<a href="https://crates.io/crates/csv">Documentation for csv</a>.
+<a href="https://crates.io/crates/csv">Documentation for csv</a>
 
-<a href="https://crates.io/crates/tokio">Documentation for tokio</a>.
+<a href="https://crates.io/crates/tokio">Documentation for tokio</a>
 
-<a href="https://crates.io/crates/reqwest">Documentation for reqwest</a>.
+<a href="https://crates.io/crates/reqwest">Documentation for reqwest</a>
 
-<a href="https://crates.io/crates/error-chain">Documentation for error-chain</a>.
+<a href="https://crates.io/crates/error-chain">Documentation for error-chain</a>
 
 
 --- 
