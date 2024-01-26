@@ -14,6 +14,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 6. [get-request](#get-request)
 7. [async-await](#async-await)
 8. [api-call](#api-call)
+9. [basic-auth](#basic-auth)
 ---
 
 read-json 
@@ -466,6 +467,44 @@ tokio = { version = "1.35.1", features = ["full"] }
 ```json
 request_url:https://api.github.com/repos/mouredev/Pokemon-JetpackCompose/stargazers
 users:[User { login: "dianait", id: 18724171 }, User { login: "tortuguitahack", id: 104583107 }, User { login: "santimattius", id: 22333101 }, User { login: "EGAMAGZ", id: 46827955 }, User { login: "Corvus-DDoSKrom", id: 60022643 }, User { login: "pableArg", id: 87443200 }, User { login: "Felipeviafra", id: 116529405 }, User { login: "NitroXen", id: 92994759 }, User { login: "sergiolpzgmz", id: 95774420 }, User { login: "AzuelRei", id: 63711569 }, User { login: "gerudaeta", id: 18522826 }, User { login: "justtomartin", id: 63985401 }, User { login: "jfcorreas", id: 5447753 }, User { login: "arturoHNeoris", id: 116126750 }, User { login: "lzmdev7", id: 117466599 }, User { login: "Gozyy", id: 37049227 }, User { login: "natfme", id: 84162661 }, User { login: "johannfjs", id: 6706832 }, User { login: "RoberMiranda92", id: 7872866 }, User { login: "fcuerno001", id: 9178326 }, User { login: "hkhellou", id: 50988331 }, User { login: "GonzaCS", id: 46221344 }, User { login: "lautidias", id: 106644432 }, User { login: "juanunix", id: 20426461 }, User { login: "grostru", id: 18310362 }, User { login: "Cfcifuentesa", id: 112942635 }, User { login: "sebastianperdomo", id: 9873666 }, User { login: "pavloglez", id: 6166941 }, User { login: "emedp", id: 14973053 }, User { login: "santimb96", id: 74008042 }]
+```
+---
+
+basic-auth
+====
+A Rust utility using the reqwest library for making a basic authenticated `GET` request to `https://httpbin.org/get` and printing the response.
+
+### Code Structure🏗️
+```Rust
+use reqwest::blocking::Client;
+use reqwest::Error;
+
+fn main() -> Result<(), Error> {
+    let client = Client::new();
+
+    let user = "testuser".to_string();
+    let passwd: Option<String> = None;
+
+    let res = client
+        .get("https://httpbin.org/get")
+        .basic_auth(user, passwd)
+        .send();
+
+    println!("{:?}", res);
+
+    Ok(())
+}
+```
+
+### Dependencies🧱
+Add the following dependencies to your Cargo.toml file:
+```Cargo.toml
+reqwest = { version = "0.11", features = ["blocking"] }
+```
+
+### Result
+```json
+Ok(Response { url: Url { scheme: "https", cannot_be_a_base: false, username: "", password: None, host: Some(Domain("httpbin.org")), port: None, path: "/get", query: None, fragment: None }, status: 200, headers: {"date": "Fri, 26 Jan 2024 22:26:01 GMT", "content-type": "application/json", "content-length": "264", "connection": "keep-alive", "server": "gunicorn/19.9.0", "access-control-allow-origin": "*", "access-control-allow-credentials": "true"} })
 ```
 
 ---
