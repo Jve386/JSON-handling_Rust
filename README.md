@@ -15,6 +15,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 7. [async-await](#async-await)
 8. [api-call](#api-call)
 9. [basic-auth](#basic-auth)
+10. [img-dwl](#img-dwl)
 ---
 
 read-json 
@@ -509,6 +510,86 @@ Ok(Response { url: Url { scheme: "https", cannot_be_a_base: false, username: "",
 
 ---
 
+img-dwl
+===
+Image Downloader in Rust using reqwest and tempfile, featuring customizable download directory and error handling.
+
+### Code Structure🏗️
+```Rust
+use error_chain::error_chain;
+use std::fs::File;
+use std::io::copy;
+use tempfile::Builder;
+
+error_chain! {
+    foreign_links {
+        Io(std::io::Error);
+        HttpRequest(reqwest::Error);
+    }
+}
+
+#[tokio::main]
+async fn main() -> Result<()> {
+    let download_dir = "C:\\";
+
+
+    let tmp_dir = Builder::new().prefix("img-dwl").tempdir_in(download_dir)?;
+
+    let target = "https://www.rust-lang.org/static/images/rust-logo-blk.svg";
+    let res = reqwest::get(target).await?;
+
+    if !res.status().is_success() {
+        eprintln!("Failed to download: {:?}", res.status());
+        return Err("Failed to download".into());
+    }
+
+    let fname = res
+        .url()
+        .path_segments()
+        .and_then(|segments| segments.last())
+        .and_then(|name| if name.is_empty() { None } else { Some(name) })
+        .unwrap_or("tmp.bin");
+
+    println!("file to download: '{}'", fname);
+
+    let file_path = tmp_dir.into_path().join(fname);
+    println!("Will be located under {:?}", file_path);
+
+    let mut dest = match File::create(&file_path) {
+        Ok(file) => file,
+        Err(e) => {
+            eprintln!("Error creating file: {:?}", e);
+            return Err(e.into());
+        }
+    };
+
+    let content = res.bytes().await?;
+    copy(&mut content.as_ref(), &mut dest)?;
+
+    println!("File downloaded successfully!");
+
+    Ok(())
+}
+
+```
+
+### Dependencies🧱
+Add the following dependencies to your Cargo.toml file:
+```Cargo.toml
+tempfile = "3.9.0"
+error-chain = "0.12.4"
+reqwest = "0.11.23"
+tokio = {version = "1.35.1", features = ["full"] }
+```
+
+### Result
+```json
+file to download: 'rust-logo-blk.svg'
+Will be located under "C:\\img-dwljHmr5j\\rust-logo-blk.svg"
+File downloaded successfully!
+```
+---
+
 If you wanna format your code to enhance your reading use the following command:
 ```Rust
 rustfmt main.rs
@@ -537,6 +618,8 @@ It will help you with possible issues before building the project.
 <a href="https://crates.io/crates/reqwest">Documentation for reqwest</a>
 
 <a href="https://crates.io/crates/error-chain">Documentation for error-chain</a>
+
+<a href="https://crates.io/crates/tempfile">Documentation for tempfile</a>
 
 
 --- 
