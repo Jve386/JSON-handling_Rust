@@ -588,6 +588,59 @@ file to download: 'rust-logo-blk.svg'
 Will be located under "C:\\img-dwljHmr5j\\rust-logo-blk.svg"
 File downloaded successfully!
 ```
+
+---
+
+link-ext
+===
+This Rust utility is a simple web scraper that uses the reqwest and select libraries to fetch and parse HTML content from the Rust Lang website. It prints out all the 'href' attributes of 'a' tags in the retrieved HTML.
+
+### Code Structure🏗️
+```Rust
+use error_chain::error_chain;
+use select::document::Document;
+use select::predicate::Name;
+
+error_chain! {
+    foreign_links {
+        Reqerror(reqwest::Error);
+        IoError(std::io::Error);
+    }
+}
+
+#[tokio::main]
+async fn main() -> Result <()> {
+    let res = reqwest::get("https://www.rust-lang.org/en-US/")
+    .await?
+    .text()
+    .await?; 
+
+Document::from(res.as_str())
+.find(Name("a"))
+.filter_map(|n| n.attr("href"))
+.for_each (|x| println!("{}", x));
+
+Ok(())
+}
+```
+### Dependencies🧱
+Add the following dependencies to your Cargo.toml file:
+```Cargo.toml
+error-chain="0.12.3"
+reqwest="0.11.21"
+tokio = {version = "1.35.1", features = ["full"] }
+select = "0.6.0"
+```
+
+### Result
+```json
+/tools/install
+/learn
+https://play.rust-lang.org/
+/tools
+/governance
+(...)
+```
 ---
 
 If you wanna format your code to enhance your reading use the following command:
@@ -598,7 +651,6 @@ It will help you with possible issues before building the project.
 
 *Note:  In the context of HTTP status codes, a status code of 200 indicates that the request has been successful. 
 
----
 
 ### 📖 Documentation
 <a href="https://doc.rust-lang.org/book/">The Rust Programming Language</a>
@@ -621,6 +673,7 @@ It will help you with possible issues before building the project.
 
 <a href="https://crates.io/crates/tempfile">Documentation for tempfile</a>
 
+<a href="https://crates.io/crates/select">Documentation for select</a>
 
 --- 
 
