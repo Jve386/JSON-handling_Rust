@@ -16,6 +16,7 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 8. [api-call](#api-call)
 9. [basic-auth](#basic-auth)
 10. [img-dwl](#img-dwl)
+11. [link-ext](#link-ext)
 ---
 
 read-json 
